@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Insurance Application</title>
+
+    <style>
+        /* Page layout and background image */
+        body {
+            font-family: Arial, sans-serif;
+            background: url('https://images.unsplash.com/photo-1450101499163-c8848c66ca85') no-repeat center center/cover;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        /* Dark overlay to improve readability over background image */
+        body::before {
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            top: 0;
+            left: 0;
+            z-index: 0;
+        }
+
+        /* Main form container */
+        .container {
+            position: relative;
+            z-index: 1;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 30px;
+            border-radius: 12px;
+            width: 420px;
+            box-shadow: 0px 8px 20px rgba(0,0,0,0.3);
+        }
+
+        /* Form heading */
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        /* Input fields and dropdown styling */
+        input, select {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+        }
+
+        /* Radio button group container */
+        .radio-group {
+            margin: 15px 0;
+        }
+
+        /* Label for radio group */
+        .radio-label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        /* Layout for radio options */
+        .radio-options {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        /* Individual radio item */
+        .radio-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            cursor: pointer;
+        }
+
+        /* Slightly increase radio button size for better visibility */
+        .radio-item input {
+            transform: scale(1.2);
+            cursor: pointer;
+        }
+
+        /* Submit button styling */
+        button {
+            width: 100%;
+            padding: 12px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        /* Hover effect for button */
+        button:hover {
+            background: #5a67d8;
+        }
+
+        /* Success message styling */
+        .success {
+            text-align: center;
+            color: green;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+    <h2>🛡️ Insurance Form</h2>
+
+    <!-- Display success message after form submission -->
+    {% if messages %}
+    {% for message in messages %}
+        <div class="success">
+            ✅ {{ message }}
+        </div>
+    {% endfor %}
+{% endif %}
+
+    <!-- Insurance form -->
+    <form method="POST">
+        {% csrf_token %}
+
+        <!-- User name -->
+        <input type="text" name="name" placeholder="Full Name" required>
+
+        <!-- User age -->
+        <input type="number" name="age" placeholder="Age" required>
+
+        <!-- Gender selection -->
+        <div class="radio-group">
+            <span class="radio-label">Gender:</span>
+
+            <div class="radio-options">
+                <label class="radio-item">
+                    <input type="radio" name="gender" value="Male" required>
+                    <span>Male</span>
+                </label>
+
+                <label class="radio-item">
+                    <input type="radio" name="gender" value="Female">
+                    <span>Female</span>
+                </label>
+
+                <label class="radio-item">
+                    <input type="radio" name="gender" value="Other">
+                    <span>Other</span>
+                </label>
+            </div>
+        </div>
+
+        <!-- Policy type selection -->
+        <select name="policy_type" required>
+            <option value="">Select Policy Type</option>
+            <option>Life Insurance</option>
+            <option>Health Insurance</option>
+            <option>Vehicle Insurance</option>
+            <option>Travel Insurance</option>
+            <option>Home Insurance</option>
+        </select>
+
+        <!-- Nominee name -->
+        <input type="text" name="nominee" placeholder="Nominee Name" required>
+
+        <!-- Coverage amount selection -->
+        <select name="coverage_amount" required>
+            <option value="">Select Coverage Amount</option>
+            <option>₹5 Lakhs</option>
+            <option>₹10 Lakhs</option>
+            <option>₹25 Lakhs</option>
+            <option>₹50 Lakhs</option>
+            <option>₹1 Crore</option>
+        </select>
+
+        <!-- Submit button -->
+        <button type="submit">Apply Now</button>
+    </form>
+</div>
+
+</body>
+</html>
